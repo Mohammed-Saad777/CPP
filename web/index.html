@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="style.css">
+    <title>calculator</title>
+</head>
+
+<body>
+    <div class="calculator">
+        <input id="input" class="input" type="text" placeholder="0">
+        <div class="box">
+            <button class="operator" onclick="AC()">AC</button>
+            <button class="operator"onclick="del()">DE</button>
+            <button class="operator" onclick="Write('%')">%</button>
+            <button class="operator" onclick="Write('/')">/</button>
+
+            <button onclick="Write('9')">9</button>
+            <button onclick="Write('8')">8</button>
+            <button onclick="Write('7')">7</button>
+            <button onclick="Write('-')" class="operator">-</button>
+
+            <button onclick="Write('6')">6</button>
+            <button onclick="Write('5')">5</button>
+            <button onclick="Write('4')">4</button>
+            <button onclick="Write('*')" class="operator">*</button>
+
+            <button onclick="Write('3')">3</button>
+            <button onclick="Write('2')">2</button>
+            <button onclick="Write('1')">1</button>
+            <button onclick="Write('/')" class="operator">/</button>
+
+            <button onclick="Write('00')">00</button>
+            <button onclick="Write('0')">0</button>
+            <button onclick="Write('.')">.</button>
+            <button class="equalbtn">=</button>
+        </div>
+</body>
+<script>
+    const Input = document.getElementById('input')
+    
+    function Write(text){
+        Input.value += text
+    }
+
+    function AC(){
+        Input.value = '0';
+    }
+
+    function del(){
+        let textLen = (Input.value).length 
+        let str = "";
+        for(let i=0; i<textLen-1; i++){
+            str += Input.value[i];
+        }
+        Input.value = str;
+    }
+
+    function result(){
+        Input.value = eval(Input.value)
+    }
+
+    function heandleKeyDownEvent(event){
+        let key = event.key
+        console.log(key)
+        if(key == 'Enter') result();
+        else if(key == 'Backspace') del();
+        else if(key == 'Delete') AC();
+        else {
+            let writebleKeys = '0123456789/*-+.%^'
+            if(writebleKeys.includes(key)) Write(key)
+        }
+        Input.scroll({left: Input.scrollWidth, behavior: "smooth"})
+    }
+
+    window.addEventListener('keydown', heandleKeyDownEvent)
+
+</script>
+</html>

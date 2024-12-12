@@ -1,0 +1,1 @@
+ tempArr[k] = arr[a++];
